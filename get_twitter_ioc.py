@@ -309,11 +309,11 @@ def get_ioc_type_info(link, con, scroll_num):
 
 
 def get_content(con):
-    global limit_time, proxy, driver, blogger_username_set
+    global limit_time, proxy, driver, blogger_username_set, scroll_num
     print('开始登录twitter')
     # 登录twitter, 如果连续登录失败超过三次这退出停止程序
     try_agin_number = 3
-    scroll_num = 3
+
     while try_agin_number > 0:
         if login_twitter():
             break
@@ -346,7 +346,7 @@ if __name__ == '__main__':
     parse.add_argument('-a', '--account', default='test@163.com', help='账号,  默认值:test@163.com')
     parse.add_argument('-pw', '--password', default='test', help='密码, 默认值:test')
     parse.add_argument('-pu', '--phone_or_username', default='test', help='手机号或用户名, 默认值:test')
-
+    parse.add_argument('-sn', '--scroll_num', default=6, help='页面滚动次数, 默认6次')
     args = parse.parse_args()
     blogger_filename = args.blogger
     ndays = args.ndays
@@ -355,7 +355,7 @@ if __name__ == '__main__':
     limit_time = datetime.now() - timedelta(days=ndays)
 
     print('limit_time = ', limit_time)
-
+    scroll_num = args.scroll_num
     account = args.account
     password = args.password
     phone_or_username = args.phone_or_username
